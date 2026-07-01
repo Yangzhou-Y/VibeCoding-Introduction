@@ -41,4 +41,10 @@ VibeCoding-Introduction/
 
 ## 许可
 
+## 在线演示
+
+访问 [yangzhou-y.github.io/VibeCoding-Introduction](https://yangzhou-y.github.io/VibeCoding-Introduction/)
+
+## 许可
+
 MIT
