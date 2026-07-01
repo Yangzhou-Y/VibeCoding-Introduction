@@ -636,6 +636,210 @@ body {
   transform: translateY(0);
 }
 
+.conv-replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-family: var(--font-system);
+  font-weight: 500;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.conv-replay:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--light-dim);
+  border-color: var(--border);
+}
+
+/* === SANDBOX === */
+.sandbox {
+  background: var(--pane);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.sandbox-input-area {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sandbox-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--light);
+  margin-bottom: 0.75rem;
+}
+
+.sandbox-input-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.sandbox-input {
+  flex: 1;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  color: var(--light);
+  font-family: var(--font-system);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  resize: none;
+  transition: border-color 0.2s ease;
+}
+
+.sandbox-input:focus {
+  outline: none;
+  border-color: var(--prompt);
+}
+
+.sandbox-input::placeholder { color: var(--muted); }
+
+.sandbox-submit {
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 1.3rem;
+}
+
+.sandbox-submit-icon {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.sandbox-hint {
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* Result area */
+.sandbox-result {
+  min-height: 160px;
+  position: relative;
+}
+
+.sandbox-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  gap: 0.75rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.sandbox-response {
+  animation: messageIn 0.4s ease forwards;
+}
+
+.sandbox-query {
+  padding: 1rem 1.5rem;
+  font-size: 0.82rem;
+  color: var(--prompt);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.sandbox-query::before {
+  content: '你';
+  font-weight: 700;
+  font-size: 0.68rem;
+  color: var(--prompt);
+  background: rgba(129,140,248,0.12);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.sandbox-answer {
+  padding: 1.25rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--light-dim);
+  white-space: pre-wrap;
+  word-break: break-word;
+  animation: messageIn 0.5s ease forwards;
+}
+
+.sandbox-answer::before {
+  content: 'AI';
+  display: block;
+  font-weight: 700;
+  font-size: 0.68rem;
+  color: var(--response);
+  background: rgba(245,158,11,0.12);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+  width: fit-content;
+  font-family: var(--font-system);
+}
+
+/* Loading dots */
+.sandbox-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 3rem 1.5rem;
+}
+
+.sandbox-loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--response);
+  animation: loadBounce 1.2s ease-in-out infinite;
+}
+
+.sandbox-loading-dot:nth-child(1) { animation-delay: 0s; }
+.sandbox-loading-dot:nth-child(2) { animation-delay: 0.15s; }
+.sandbox-loading-dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes loadBounce {
+  0%, 80%, 100% { transform: scale(0.4); opacity: 0.3; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* Toast for share */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--light);
+  color: var(--void);
+  padding: 0.65rem 1.3rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font-system);
+  z-index: 999;
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .principle-grid {
@@ -695,7 +899,7 @@ body {
 <header class="header" id="header">
   <div class="container">
     <a href="#" class="logo">vibe<span class="logo-dot"></span></a>
-    <a href="#start" class="header-cta">开始体验</a>
+    <a href="#try-it" class="header-cta">开始体验</a>
   </div>
 </header>
 
@@ -717,10 +921,16 @@ body {
     <!-- Conversation Demo (Signature Element) -->
     <div class="conversation" id="conversation" aria-label="Vibe coding 对话演示">
       <div class="conversation-header">
-        <span class="conversation-dot r"></span>
-        <span class="conversation-dot y"></span>
-        <span class="conversation-dot g"></span>
-        <span style="margin-left:0.4rem;">vibe session</span>
+        <div style="display:flex;align-items:center;gap:0.5rem;">
+          <span class="conversation-dot r"></span>
+          <span class="conversation-dot y"></span>
+          <span class="conversation-dot g"></span>
+          <span style="margin-left:0.4rem;">vibe session</span>
+        </div>
+        <button class="conv-replay" id="replayDemo" title="重新播放演示对话" aria-label="重新播放对话">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          重播
+        </button>
       </div>
       <div class="conversation-body" id="conversationBody">
         <!-- Messages inserted by JS -->
@@ -870,17 +1080,64 @@ body {
       <h2 class="display-sm">开始你的第一次 Vibe Coding</h2>
     </div>
     <div class="principle-grid">
-      <div class="principle-card reveal">
+      <a href="https://claude.ai/code" target="_blank" rel="noopener" class="principle-card reveal" style="text-decoration:none;color:inherit;display:block;">
         <h3 class="principle-title" style="font-family:var(--font-mono);font-size:0.95rem;">Claude Code</h3>
         <p class="principle-desc">终端里的 AI 编程助手。直接描述你的需求，它会探索代码库、写代码、运行测试——全部在对话中完成。</p>
-      </div>
-      <div class="principle-card reveal">
+      </a>
+      <a href="https://cursor.com" target="_blank" rel="noopener" class="principle-card reveal" style="text-decoration:none;color:inherit;display:block;">
         <h3 class="principle-title" style="font-family:var(--font-mono);font-size:0.95rem;">Cursor</h3>
         <p class="principle-desc">AI 优先的代码编辑器。在编辑器里用自然语言指令修改代码，AI 理解整个项目上下文。</p>
-      </div>
-      <div class="principle-card reveal">
+      </a>
+      <a href="https://v0.dev" target="_blank" rel="noopener" class="principle-card reveal" style="text-decoration:none;color:inherit;display:block;">
         <h3 class="principle-title" style="font-family:var(--font-mono);font-size:0.95rem;">v0 by Vercel</h3>
         <p class="principle-desc">用文字描述界面，AI 生成 React/Tailwind 组件。从文字到可部署的 UI，只需要几句话。</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE SANDBOX -->
+<section class="section" id="try-it">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">亲身体验</p>
+      <h2 class="display-sm">来，试试 Vibe Coding</h2>
+    </div>
+    <div class="reveal">
+      <div class="sandbox">
+        <div class="sandbox-input-area">
+          <label for="sandboxInput" class="sandbox-label">描述你想创建的东西</label>
+          <div class="sandbox-input-row">
+            <textarea
+              id="sandboxInput"
+              class="sandbox-input"
+              placeholder="例如：做一个倒计时器，可以设置分钟数，到时间会播放提示音…"
+              rows="2"
+              maxlength="300"
+            ></textarea>
+            <button class="btn btn-primary sandbox-submit" id="sandboxSubmit" type="button">
+              <span class="sandbox-submit-icon">↵</span>
+              <span>生成</span>
+            </button>
+          </div>
+          <p class="sandbox-hint">用日常语言描述你想要的功能，越具体效果越好</p>
+        </div>
+
+        <div class="sandbox-result" id="sandboxResult" aria-live="polite">
+          <div class="sandbox-empty" id="sandboxEmpty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            <p>你的 AI 响应会出现在这里</p>
+          </div>
+          <div class="sandbox-response" id="sandboxResponse" style="display:none;">
+            <div class="sandbox-query" id="sandboxQuery"></div>
+            <div class="sandbox-answer" id="sandboxAnswer"></div>
+          </div>
+          <div class="sandbox-loading" id="sandboxLoading" style="display:none;">
+            <span class="sandbox-loading-dot"></span>
+            <span class="sandbox-loading-dot"></span>
+            <span class="sandbox-loading-dot"></span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -894,8 +1151,11 @@ body {
       <h2 class="display-sm cta-headline">你有一个想法<br>这就够了</h2>
       <p class="body cta-body">打开任何一个 AI 编程工具，用一句话描述你想创造的东西。你会惊讶于几秒钟后屏幕上出现的东西。</p>
       <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
-        <a href="#" class="btn btn-primary">开始体验 Claude Code →</a>
-        <a href="#" class="btn btn-ghost">了解更多</a>
+        <a href="#try-it" class="btn btn-primary">试玩体验区 ↑</a>
+        <button class="btn btn-ghost" id="btnShare" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:2px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          分享给朋友
+        </button>
       </div>
     </div>
   </div>
@@ -971,121 +1231,939 @@ export default function Dashboard() {
   }
 ];
 
-const conversationBody = document.getElementById('conversationBody');
-let messageIndex = 0;
-let charIndex = 0;
-let currentTextEl = null;
-let currentCodeEl = null;
+let typeTimer = null;
 
-function createMessage(msg) {
-  const div = document.createElement('div');
-  div.className = `message ${msg.type}`;
-  div.style.animationDelay = '0s';
+function runConversationDemo() {
+  const conversationBody = document.getElementById('conversationBody');
+  // Clear previous
+  if (typeTimer) clearTimeout(typeTimer);
+  conversationBody.innerHTML = '';
 
-  const avatar = document.createElement('div');
-  avatar.className = 'message-avatar';
-  avatar.textContent = msg.type === 'human' ? '你' : 'AI';
+  let messageIndex = 0;
+  let charIndex = 0;
+  let currentTextEl = null;
+  let currentCodeEl = null;
 
-  const bubble = document.createElement('div');
-  bubble.className = 'message-bubble';
+  function createMessage(msg) {
+    const div = document.createElement('div');
+    div.className = `message ${msg.type}`;
 
-  if (msg.text) {
-    const textSpan = document.createElement('span');
-    textSpan.className = 'message-text';
-    bubble.appendChild(textSpan);
-    currentTextEl = textSpan;
-  }
+    const avatar = document.createElement('div');
+    avatar.className = 'message-avatar';
+    avatar.textContent = msg.type === 'human' ? '你' : 'AI';
 
-  if (msg.code) {
-    const codeBlock = document.createElement('span');
-    codeBlock.className = 'code-block';
-    // Syntax highlight
-    codeBlock.innerHTML = highlightCode(msg.code);
-    bubble.appendChild(codeBlock);
-    currentCodeEl = codeBlock;
-  }
+    const bubble = document.createElement('div');
+    bubble.className = 'message-bubble';
 
-  div.appendChild(avatar);
-  div.appendChild(bubble);
-  conversationBody.appendChild(div);
-
-  // Trigger animation
-  requestAnimationFrame(() => {
-    div.style.animation = 'none';
-    div.offsetHeight; // reflow
-    div.style.animation = 'messageIn 0.5s ease forwards';
-  });
-
-  return div;
-}
-
-function highlightCode(code) {
-  return code
-    .replace(/(import|export|const|function|return|default|async|await|let|var|if|else|for|while)\b/g,
-      '<span class="code-keyword">$1</span>')
-    .replace(/(useState|useEffect|useCallback|useMemo|useRef)\b/g,
-      '<span class="code-fn">$1</span>')
-    .replace(/('.*?'|".*?"|`.*?`)/g,
-      '<span class="code-str">$1</span>')
-    .replace(/(\w+)(?=\s*[:=]\s*\{)/g,
-      '<span class="code-prop">$1</span>');
-}
-
-function typeNextChar() {
-  if (messageIndex >= conversationScript.length) {
-    // Add blinking cursor at end
-    const lastBubble = conversationBody.lastElementChild?.querySelector('.message-bubble');
-    if (lastBubble && !lastBubble.querySelector('.cursor-blink')) {
-      const cursor = document.createElement('span');
-      cursor.className = 'cursor-blink';
-      lastBubble.appendChild(cursor);
+    if (msg.text) {
+      const textSpan = document.createElement('span');
+      textSpan.className = 'message-text';
+      bubble.appendChild(textSpan);
+      currentTextEl = textSpan;
     }
-    return;
+
+    if (msg.code) {
+      const codeBlock = document.createElement('span');
+      codeBlock.className = 'code-block';
+      codeBlock.innerHTML = highlightCode(msg.code);
+      bubble.appendChild(codeBlock);
+      currentCodeEl = codeBlock;
+    }
+
+    div.appendChild(avatar);
+    div.appendChild(bubble);
+    conversationBody.appendChild(div);
+
+    requestAnimationFrame(() => {
+      div.style.animation = 'none';
+      div.offsetHeight;
+      div.style.animation = 'messageIn 0.5s ease forwards';
+    });
+
+    return div;
   }
 
-  const msg = conversationScript[messageIndex];
-
-  // Create message on first char
-  if (charIndex === 0) {
-    if (currentTextEl) currentTextEl = null;
-    if (currentCodeEl) currentCodeEl = null;
-    createMessage(msg);
-    conversationBody.scrollTop = conversationBody.scrollHeight;
+  function highlightCode(code) {
+    return code
+      .replace(/(import|export|const|function|return|default|async|await|let|var|if|else|for|while)\b/g,
+        '<span class="code-keyword">$1</span>')
+      .replace(/(useState|useEffect|useCallback|useMemo|useRef)\b/g,
+        '<span class="code-fn">$1</span>')
+      .replace(/('.*?'|".*?"|`.*?`)/g,
+        '<span class="code-str">$1</span>')
+      .replace(/(\w+)(?=\s*[:=]\s*\{)/g,
+        '<span class="code-prop">$1</span>');
   }
 
-  // Type text
-  if (msg.text && currentTextEl && charIndex < msg.text.length) {
-    currentTextEl.textContent += msg.text[charIndex];
-    charIndex++;
-    conversationBody.scrollTop = conversationBody.scrollHeight;
-    const delay = Math.random() * 40 + 15; // 15-55ms per char, natural feel
-    setTimeout(typeNextChar, delay);
-    return;
-  }
-
-  // Type code
-  if (msg.code && currentCodeEl && charIndex < msg.text.length + msg.code.length) {
-    const codeIdx = charIndex - (msg.text?.length || 0);
-    if (codeIdx < msg.code.length) {
-      const currentHtml = currentCodeEl.innerHTML;
-      const raw = msg.code.substring(0, codeIdx + 1);
-      currentCodeEl.innerHTML = highlightCode(raw);
-      charIndex++;
-      conversationBody.scrollTop = conversationBody.scrollHeight;
-      const delay = Math.random() * 30 + 10; // faster for code
-      setTimeout(typeNextChar, delay);
+  function typeNextChar() {
+    if (messageIndex >= conversationScript.length) {
+      const lastBubble = conversationBody.lastElementChild?.querySelector('.message-bubble');
+      if (lastBubble && !lastBubble.querySelector('.cursor-blink')) {
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor-blink';
+        lastBubble.appendChild(cursor);
+      }
       return;
     }
+
+    const msg = conversationScript[messageIndex];
+
+    if (charIndex === 0) {
+      if (currentTextEl) currentTextEl = null;
+      if (currentCodeEl) currentCodeEl = null;
+      createMessage(msg);
+      conversationBody.scrollTop = conversationBody.scrollHeight;
+    }
+
+    if (msg.text && currentTextEl && charIndex < msg.text.length) {
+      currentTextEl.textContent += msg.text[charIndex];
+      charIndex++;
+      conversationBody.scrollTop = conversationBody.scrollHeight;
+      typeTimer = setTimeout(typeNextChar, Math.random() * 40 + 15);
+      return;
+    }
+
+    if (msg.code && currentCodeEl && charIndex < msg.text.length + msg.code.length) {
+      const codeIdx = charIndex - (msg.text?.length || 0);
+      if (codeIdx < msg.code.length) {
+        const raw = msg.code.substring(0, codeIdx + 1);
+        currentCodeEl.innerHTML = highlightCode(raw);
+        charIndex++;
+        conversationBody.scrollTop = conversationBody.scrollHeight;
+        typeTimer = setTimeout(typeNextChar, Math.random() * 30 + 10);
+        return;
+      }
+    }
+
+    messageIndex++;
+    charIndex = 0;
+    typeTimer = setTimeout(typeNextChar, 400);
   }
 
-  // Move to next message
-  messageIndex++;
-  charIndex = 0;
-  setTimeout(typeNextChar, 400); // pause between messages
+  typeTimer = setTimeout(typeNextChar, 600);
 }
 
-// Start conversation after a short delay
-setTimeout(typeNextChar, 600);
+// Replay button
+document.getElementById('replayDemo').addEventListener('click', runConversationDemo);
+
+// Start on load
+runConversationDemo();
+
+// === INTERACTIVE SANDBOX ===
+const sandboxInput = document.getElementById('sandboxInput');
+const sandboxSubmit = document.getElementById('sandboxSubmit');
+const sandboxEmpty = document.getElementById('sandboxEmpty');
+const sandboxResponse = document.getElementById('sandboxResponse');
+const sandboxQuery = document.getElementById('sandboxQuery');
+const sandboxAnswer = document.getElementById('sandboxAnswer');
+const sandboxLoading = document.getElementById('sandboxLoading');
+
+// Simulated AI response templates based on keywords
+function generateAIResponse(prompt) {
+  const lower = prompt.toLowerCase();
+  const hasTimer = lower.includes('计时') || lower.includes('倒计') || lower.includes('番茄') || lower.includes('timer');
+  const hasTodo = lower.includes('待办') || lower.includes('todo') || lower.includes('任务') || lower.includes('清单');
+  const hasWeather = lower.includes('天气') || lower.includes('weather');
+  const hasDark = lower.includes('暗色') || lower.includes('深色') || lower.includes('dark') || lower.includes('黑夜');
+  const hasLogin = lower.includes('登录') || lower.includes('注册') || lower.includes('login');
+  const hasChart = lower.includes('图表') || lower.includes('统计') || lower.includes('chart') || lower.includes('可视化');
+  const hasPdf = lower.includes('pdf') || lower.includes('导出');
+  const hasGame = lower.includes('游戏') || lower.includes('game') || lower.includes('贪吃蛇') || lower.includes('拼图');
+  const hasSearch = lower.includes('搜索') || lower.includes('search') || lower.includes('查找');
+  const hasForm = lower.includes('表单') || lower.includes('form') || lower.includes('问卷') || lower.includes('调查');
+  const hasApi = lower.includes('api') || lower.includes('接口') || lower.includes('后端');
+
+  let response = '';
+  const techStack = ['React', 'TypeScript', 'Tailwind CSS'];
+
+  if (hasTimer && hasTodo && hasWeather) {
+    response = `好的，我为你创建了一个个人仪表盘项目，包含三个核心模块：
+
+\`\`\`tsx
+// App.tsx
+import { Dashboard } from './components/Dashboard';
+
+export default function App() {
+  return <Dashboard />;
+}
+\`\`\`
+
+📁 项目结构：
+• \`components/Dashboard.tsx\` — 仪表盘主布局，${techStack.includes('React') ? 'React' : ''} 三栏网格
+• \`components/PomodoroTimer.tsx\` — 番茄钟，默认 25 分钟，可自定义
+• \`components/TodoList.tsx\` — 待办列表，支持添加/勾选/删除
+• \`components/WeatherCard.tsx\` — 天气卡片，调用 Open-Meteo 免费 API
+
+每个组件都是独立的，你可以单独修改其中任何一个。现在运行 \`npm run dev\` 就能看到效果。`;
+  } else if (hasTimer) {
+    response = `我为你创建了一个可定制的倒计时器：
+
+\`\`\`tsx
+// components/CountdownTimer.tsx
+import { useState, useEffect, useCallback } from 'react';
+
+export function CountdownTimer() {
+  const [minutes, setMinutes] = useState(5);
+  const [seconds, setSeconds] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    if (!isRunning) return;
+    if (seconds === 0 && minutes === 0) {
+      // 播放提示音
+      const audio = new Audio('/notification.wav');
+      audio.play();
+      setIsRunning(false);
+      return;
+    }
+    const timer = setInterval(() => {
+      if (seconds === 0) {
+        setMinutes(m => m - 1);
+        setSeconds(59);
+      } else {
+        setSeconds(s => s - 1);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [isRunning, minutes, seconds]);
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <div className="text-6xl font-mono font-bold">
+        {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
+      </div>
+      <div className="flex gap-2">
+        <button onClick={() => setIsRunning(!isRunning)}>
+          {isRunning ? '暂停' : '开始'}
+        </button>
+        <button onClick={() => { setIsRunning(false); setMinutes(5); setSeconds(0); }}>
+          重置
+        </button>
+      </div>
+    </div>
+  );
+}
+\`\`\`
+
+包含开始/暂停、重置功能，到时间自动播放提示音。试试看，觉得哪里需要调整随时告诉我。`;
+  } else if (hasTodo) {
+    response = `这是一个完整的待办事项应用：
+
+\`\`\`tsx
+// components/TodoApp.tsx
+import { useState } from 'react';
+
+interface Todo {
+  id: string;
+  text: string;
+  done: boolean;
+}
+
+export function TodoApp() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [input, setInput] = useState('');
+
+  const addTodo = () => {
+    if (!input.trim()) return;
+    setTodos(prev => [...prev, {
+      id: crypto.randomUUID(),
+      text: input.trim(),
+      done: false
+    }]);
+    setInput('');
+  };
+
+  const toggleTodo = (id: string) => {
+    setTodos(prev => prev.map(t =>
+      t.id === id ? { ...t, done: !t.done } : t
+    ));
+  };
+
+  const removeTodo = (id: string) => {
+    setTodos(prev => prev.filter(t => t.id !== id));
+  };
+
+  const remaining = todos.filter(t => !t.done).length;
+
+  return (
+    <div className="max-w-md mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4">
+        待办事项 ({remaining} 项未完成)
+      </h1>
+      <div className="flex gap-2 mb-4">
+        <input
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && addTodo()}
+          placeholder="添加新任务..."
+          className="flex-1 px-3 py-2 border rounded-lg"
+        />
+        <button onClick={addTodo}>添加</button>
+      </div>
+      <ul className="space-y-2">
+        {todos.map(todo => (
+          <li key={todo.id} className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={todo.done}
+              onChange={() => toggleTodo(todo.id)}
+            />
+            <span className={todo.done ? 'line-through text-gray-400' : ''}>
+              {todo.text}
+            </span>
+            <button onClick={() => removeTodo(todo.id)}>×</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+\`\`\`
+
+支持添加、勾选完成、删除任务，键盘回车添加。风格简洁，可以直接用。`;
+  } else if (hasWeather) {
+    response = `一个实时天气展示组件，自动获取当前位置天气：
+
+\`\`\`tsx
+// components/WeatherWidget.tsx
+import { useState, useEffect } from 'react';
+
+interface WeatherData {
+  temp: number;
+  condition: string;
+  icon: string;
+  humidity: number;
+}
+
+export function WeatherWidget() {
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(async pos => {
+      const { latitude, longitude } = pos.coords;
+      const res = await fetch(
+        \`https://api.open-meteo.com/v1/forecast?latitude=\${latitude}&longitude=\${longitude}&current=temperature_2m,relative_humidity_2m,weather_code\`
+      );
+      const data = await res.json();
+      setWeather({
+        temp: data.current.temperature_2m,
+        condition: getCondition(data.current.weather_code),
+        icon: getIcon(data.current.weather_code),
+        humidity: data.current.relative_humidity_2m
+      });
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) return <div className="animate-pulse">加载天气中...</div>;
+
+  return (
+    <div className="rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 p-6 text-white">
+      <h2 className="text-lg opacity-80">今日天气</h2>
+      <div className="mt-2 flex items-baseline gap-2">
+        <span className="text-5xl font-light">{weather.temp}°C</span>
+        <span className="opacity-70">{weather.condition}</span>
+      </div>
+      <div className="mt-2 text-sm opacity-60">
+        湿度 {weather.humidity}%
+      </div>
+    </div>
+  );
+}
+\`\`\`
+
+使用 Open-Meteo 免费天气 API，获取用户位置后自动展示温度、天气状况和湿度。`;
+  } else if (hasDark) {
+    response = `好的，我把项目切换到了暗色主题。以下是更新：
+
+\`\`\`css
+/* styles/globals.css */
+:root {
+  --bg-primary: #0f0f13;
+  --bg-secondary: #1a1a24;
+  --text-primary: #e8e8ec;
+  --text-secondary: #9ca3af;
+  --accent: #818cf8;
+  --border: rgba(255,255,255,0.06);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+\`\`\`
+
+深色背景 (#0f0f13)，卡片用微妙的抬升，靛蓝作为强调色。眼睛在暗色下长时间使用更舒适。`;
+  } else if (hasLogin) {
+    response = `一个完整的登录/注册系统：
+
+\`\`\`tsx
+// components/AuthForm.tsx
+import { useState } from 'react';
+
+type Mode = 'login' | 'register';
+
+export function AuthForm() {
+  const [mode, setMode] = useState<Mode>('login');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const endpoint = mode === 'login' ? '/api/login' : '/api/register';
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    if (res.ok) {
+      // 登录/注册成功，跳转到仪表盘
+      window.location.href = '/dashboard';
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-sm mx-auto">
+      <h2 className="text-2xl font-bold">
+        {mode === 'login' ? '登录' : '创建账号'}
+      </h2>
+
+      <input
+        type="email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        placeholder="邮箱地址"
+        required
+        className="w-full px-4 py-2.5 rounded-lg border"
+      />
+
+      <input
+        type="password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        placeholder="密码（至少 8 位）"
+        minLength={8}
+        required
+        className="w-full px-4 py-2.5 rounded-lg border"
+      />
+
+      <button type="submit" className="w-full py-2.5 bg-indigo-600 text-white rounded-lg font-semibold">
+        {mode === 'login' ? '登录' : '注册'}
+      </button>
+
+      <p className="text-center text-sm text-gray-500">
+        {mode === 'login' ? '还没有账号？' : '已有账号？'}
+        <button
+          type="button"
+          onClick={() => setMode(mode === 'login' ? 'register' : 'login')}
+          className="text-indigo-600 ml-1"
+        >
+          {mode === 'login' ? '立即注册' : '去登录'}
+        </button>
+      </p>
+    </form>
+  );
+}
+\`\`\`
+
+包含登录/注册切换、表单校验、API 对接。密码最少 8 位，提交后自动跳转到仪表盘。`;
+  } else if (hasChart) {
+    response = `我为你创建了一个数据可视化仪表盘：
+
+\`\`\`tsx
+// components/ChartDashboard.tsx
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+
+const weeklyData = [
+  { day: '周一', 访问: 1200, 注册: 89 },
+  { day: '周二', 访问: 980, 注册: 64 },
+  { day: '周三', 访问: 1450, 注册: 102 },
+  { day: '周四', 访问: 860, 注册: 55 },
+  { day: '周五', 访问: 1100, 注册: 78 },
+  { day: '周六', 访问: 670, 注册: 31 },
+  { day: '周日', 访问: 520, 注册: 22 },
+];
+
+export function ChartDashboard() {
+  const totalVisits = weeklyData.reduce((s, d) => s + d.访问, 0);
+  const avgSignups = Math.round(
+    weeklyData.reduce((s, d) => s + d.注册, 0) / 7
+  );
+
+  return (
+    <div className="grid gap-6 p-6">
+      {/* 统计卡片 */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="rounded-xl bg-white p-5 shadow-sm">
+          <p className="text-sm text-gray-500">本周总访问</p>
+          <p className="text-3xl font-bold mt-1">{totalVisits.toLocaleString()}</p>
+        </div>
+        <div className="rounded-xl bg-white p-5 shadow-sm">
+          <p className="text-sm text-gray-500">日均注册</p>
+          <p className="text-3xl font-bold mt-1">{avgSignups}</p>
+        </div>
+      </div>
+
+      {/* 柱状图 */}
+      <div className="rounded-xl bg-white p-5 shadow-sm">
+        <h3 className="font-semibold mb-4">每日访问量</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={weeklyData}>
+            <XAxis dataKey="day" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="访问" fill="#818CF8" radius={[4,4,0,0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}
+\`\`\`
+
+使用 Recharts 图表库，包含统计卡片和柱状图，数据可以在实际项目中换成你的真实数据。`;
+  } else if (hasGame) {
+    response = `有趣的选择！我来做一个贪吃蛇游戏：
+
+\`\`\`tsx
+// components/SnakeGame.tsx
+import { useState, useEffect, useCallback } from 'react';
+
+const GRID = 20;
+const SPEED = 150;
+
+type Point = { x: number; y: number };
+
+export function SnakeGame() {
+  const [snake, setSnake] = useState<Point[]>([{ x: 10, y: 10 }]);
+  const [food, setFood] = useState<Point>({ x: 15, y: 10 });
+  const [dir, setDir] = useState<Point>({ x: 1, y: 0 });
+  const [gameOver, setGameOver] = useState(false);
+  const [score, setScore] = useState(0);
+
+  const reset = useCallback(() => {
+    setSnake([{ x: 10, y: 10 }]);
+    setFood({ x: 15, y: 10 });
+    setDir({ x: 1, y: 0 });
+    setGameOver(false);
+    setScore(0);
+  }, []);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      const keyMap: Record<string, Point> = {
+        ArrowUp:    { x: 0, y: -1 },
+        ArrowDown:  { x: 0, y: 1 },
+        ArrowLeft:  { x: -1, y: 0 },
+        ArrowRight: { x: 1, y: 0 },
+        w: { x: 0, y: -1 }, s: { x: 0, y: 1 },
+        a: { x: -1, y: 0 }, d: { x: 1, y: 0 },
+      };
+      const newDir = keyMap[e.key];
+      if (newDir) {
+        e.preventDefault();
+        setDir(prev => (prev.x + newDir.x === 0 ? prev : newDir));
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
+
+  useEffect(() => {
+    if (gameOver) return;
+    const tick = setInterval(() => {
+      setSnake(prev => {
+        const head = prev[0];
+        const next: Point = { x: head.x + dir.x, y: head.y + dir.y };
+
+        if (next.x < 0 || next.x >= GRID || next.y < 0 || next.y >= GRID ||
+            prev.some(p => p.x === next.x && p.y === next.y)) {
+          setGameOver(true);
+          return prev;
+        }
+
+        const ate = next.x === food.x && next.y === food.y;
+        if (ate) {
+          setScore(s => s + 10);
+          setFood({
+            x: Math.floor(Math.random() * GRID),
+            y: Math.floor(Math.random() * GRID)
+          });
+          return [next, ...prev];
+        }
+        return [next, ...prev.slice(0, -1)];
+      });
+    }, SPEED);
+    return () => clearInterval(tick);
+  }, [dir, food, gameOver]);
+
+  return (
+    <div className="flex flex-col items-center gap-4 p-4">
+      <div className="flex gap-8 items-center">
+        <p className="text-lg font-mono">得分: {score}</p>
+        {gameOver && (
+          <button onClick={reset} className="px-4 py-2 bg-indigo-600 text-white rounded-lg">
+            重新开始
+          </button>
+        )}
+      </div>
+      <div className="grid gap-px bg-gray-200 p-px rounded-lg"
+           style={{ gridTemplateColumns: \`repeat(\${GRID}, 20px)\` }}>
+        {Array.from({ length: GRID * GRID }, (_, i) => {
+          const x = i % GRID, y = Math.floor(i / GRID);
+          const isSnake = snake.some(p => p.x === x && p.y === y);
+          const isFood = food.x === x && food.y === y;
+          return (
+            <div key={i}
+              className={\`w-5 h-5 rounded-sm \${
+                isSnake ? 'bg-green-500' : isFood ? 'bg-red-500' : 'bg-white'
+              }\`}
+            />
+          );
+        })}
+      </div>
+      <p className="text-sm text-gray-500">方向键或 WASD 控制</p>
+    </div>
+  );
+}
+\`\`\`
+
+完整的贪吃蛇游戏！方向键/WASD 控制，吃到食物加分，撞墙或撞到自己游戏结束。React Hooks 实现，可以直接嵌入任何页面。`;
+  } else if (hasSearch) {
+    response = `一个带实时搜索的列表组件：
+
+\`\`\`tsx
+// components/SearchableList.tsx
+import { useState, useMemo } from 'react';
+
+interface Item {
+  id: string;
+  title: string;
+  category: string;
+  date: string;
+}
+
+export function SearchableList({ items }: { items: Item[] }) {
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('全部');
+
+  const filtered = useMemo(() => {
+    return items.filter(item => {
+      const matchQuery = !query ||
+        item.title.toLowerCase().includes(query.toLowerCase());
+      const matchCategory = category === '全部' ||
+        item.category === category;
+      return matchQuery && matchCategory;
+    });
+  }, [items, query, category]);
+
+  const categories = ['全部', ...new Set(items.map(i => i.category))];
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-3">
+        <input
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          placeholder="搜索..."
+          className="flex-1 px-4 py-2 border rounded-lg"
+        />
+        <select
+          value={category}
+          onChange={e => setCategory(e.target.value)}
+          className="px-3 py-2 border rounded-lg"
+        >
+          {categories.map(c => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
+      </div>
+      <p className="text-sm text-gray-500">
+        找到 {filtered.length} 条结果
+      </p>
+      <ul className="space-y-2">
+        {filtered.map(item => (
+          <li key={item.id} className="p-4 bg-white rounded-lg shadow-sm">
+            <h3 className="font-semibold">{item.title}</h3>
+            <div className="flex gap-3 text-sm text-gray-500 mt-1">
+              <span>{item.category}</span>
+              <span>{item.date}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+\`\`\`
+
+支持文本搜索 + 分类筛选，结果实时更新，输入即搜。使用 \`useMemo\` 优化过滤性能。`;
+  } else if (hasForm) {
+    response = `一个智能表单构建器：
+
+\`\`\`tsx
+// components/SurveyForm.tsx
+import { useState } from 'react';
+
+type Question = {
+  id: string;
+  type: 'text' | 'rating' | 'choice';
+  label: string;
+  options?: string[];
+};
+
+const questions: Question[] = [
+  { id: 'q1', type: 'text', label: '你的名字是？' },
+  { id: 'q2', type: 'rating', label: '你对本服务的满意度？' },
+  { id: 'q3', type: 'choice', label: '最喜欢的颜色？', options: ['红', '蓝', '绿', '黄'] },
+];
+
+export function SurveyForm() {
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(answers);
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="text-center p-8">
+        <p className="text-4xl mb-4">🎉</p>
+        <h2 className="text-xl font-bold">提交成功！</h2>
+        <p className="text-gray-500 mt-2">感谢你的反馈</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-md">
+      {questions.map(q => (
+        <div key={q.id}>
+          <label className="block font-medium mb-2">{q.label}</label>
+          {q.type === 'text' && (
+            <input
+              type="text"
+              value={answers[q.id] || ''}
+              onChange={e => setAnswers(prev => ({ ...prev, [q.id]: e.target.value }))}
+              className="w-full px-4 py-2 border rounded-lg"
+              required
+            />
+          )}
+          {q.type === 'rating' && (
+            <div className="flex gap-2">
+              {[1,2,3,4,5].map(n => (
+                <button key={n} type="button"
+                  onClick={() => setAnswers(prev => ({ ...prev, [q.id]: String(n) }))}
+                  className={\`w-10 h-10 rounded-full border-2 text-lg \${
+                    answers[q.id] === String(n)
+                      ? 'border-indigo-600 bg-indigo-50 text-indigo-600'
+                      : 'border-gray-200 hover:border-gray-400'
+                  }\`}
+                >{n === 1 ? '😡' : n === 2 ? '😟' : n === 3 ? '😐' : n === 4 ? '😊' : '😍'}</button>
+              ))}
+            </div>
+          )}
+          {q.type === 'choice' && (
+            <div className="space-y-2">
+              {q.options?.map(opt => (
+                <label key={opt} className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name={q.id}
+                    value={opt}
+                    checked={answers[q.id] === opt}
+                    onChange={e => setAnswers(prev => ({ ...prev, [q.id]: e.target.value }))}
+                  />
+                  {opt}
+                </label>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+      <button type="submit" className="w-full py-3 bg-indigo-600 text-white rounded-lg font-semibold">
+        提交问卷
+      </button>
+    </form>
+  );
+}
+\`\`\`
+
+三种题型：文本输入、表情评分 (1-5)、单选题。提交后显示动画确认页。表单数据可接入任何 API。`;
+  } else if (hasApi) {
+    response = `我为你创建了一个 Express + TypeScript 后端 API：
+
+\`\`\`typescript
+// server.ts
+import express from 'express';
+import cors from 'cors';
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+interface Note {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+}
+
+const notes: Note[] = [];
+
+// 获取所有笔记
+app.get('/api/notes', (req, res) => {
+  res.json(notes);
+});
+
+// 创建笔记
+app.post('/api/notes', (req, res) => {
+  const { title, content } = req.body;
+  if (!title || !content) {
+    return res.status(400).json({ error: '标题和内容不能为空' });
+  }
+  const note: Note = {
+    id: crypto.randomUUID(),
+    title,
+    content,
+    createdAt: new Date().toISOString()
+  };
+  notes.push(note);
+  res.status(201).json(note);
+});
+
+// 删除笔记
+app.delete('/api/notes/:id', (req, res) => {
+  const idx = notes.findIndex(n => n.id === req.params.id);
+  if (idx === -1) return res.status(404).json({ error: '笔记不存在' });
+  notes.splice(idx, 1);
+  res.status(204).send();
+});
+
+app.listen(3001, () => console.log('API server running on port 3001'));
+\`\`\`
+
+完整的 CRUD API，包含数据校验、错误处理。前端用 \`fetch('/api/notes')\` 即可调用。`;
+  } else {
+    response = `好的！我根据你的描述创建了一个项目：
+
+\`\`\`tsx
+// App.tsx
+import { useState } from 'react';
+
+export default function App() {
+  const [value, setValue] = useState('');
+
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center p-8">
+      <h1 className="text-4xl font-bold mb-8">
+        你的新应用
+      </h1>
+      <p className="text-gray-500 mb-4">
+        我已经根据你的描述搭建了项目骨架。
+      </p>
+      <div className="space-y-4 w-full max-w-md">
+        <input
+          value={value}
+          onChange={e => setValue(e.target.value)}
+          placeholder="从这里开始..."
+          className="w-full px-4 py-3 border rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        />
+        <button className="w-full py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors">
+          开始使用
+        </button>
+      </div>
+      <p className="text-sm text-gray-400 mt-8">
+        想要调整任何部分，继续告诉我就好
+      </p>
+    </main>
+  );
+}
+\`\`\`
+
+这是一个起点。告诉我你想添加什么功能，或者需要我调整哪些地方——这就是 vibe coding，我们边聊边改。`;
+  }
+
+  return response;
+}
+
+function runSandbox() {
+  const prompt = sandboxInput.value.trim();
+  if (!prompt) return;
+
+  // Disable input during generation
+  sandboxInput.disabled = true;
+  sandboxSubmit.disabled = true;
+
+  // Show loading
+  sandboxEmpty.style.display = 'none';
+  sandboxResponse.style.display = 'none';
+  sandboxLoading.style.display = 'flex';
+
+  // Simulate AI processing (1.2-2.5s delay for realism)
+  const delay = 1200 + Math.random() * 1300;
+
+  setTimeout(() => {
+    const response = generateAIResponse(prompt);
+
+    // Hide loading, show response
+    sandboxLoading.style.display = 'none';
+    sandboxResponse.style.display = 'block';
+    sandboxQuery.textContent = prompt;
+    sandboxAnswer.innerHTML = response;
+
+    // Re-enable input
+    sandboxInput.disabled = false;
+    sandboxSubmit.disabled = false;
+    sandboxInput.focus();
+
+    // Scroll to response
+    sandboxResponse.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, delay);
+}
+
+sandboxSubmit.addEventListener('click', runSandbox);
+
+sandboxInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    runSandbox();
+  }
+});
+
+// === SHARE BUTTON ===
+document.getElementById('btnShare').addEventListener('click', async () => {
+  const url = window.location.href;
+
+  // Show existing toast or create new one
+  let toast = document.querySelector('.toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.className = 'toast';
+    document.body.appendChild(toast);
+  }
+
+  try {
+    await navigator.clipboard.writeText(url);
+    toast.textContent = '链接已复制到剪贴板 ✓';
+  } catch {
+    toast.textContent = url;
+  }
+
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+});
 
 // === SCROLL REVEAL ===
 const revealObserver = new IntersectionObserver((entries) => {
